@@ -1,0 +1,23 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset from World Bank (correct source needed)
+url = 'https://raw.githubusercontent.com/datasets/population/master/data/population.csv'
+df = pd.read_csv(url)
+
+# Filter for the year 2022 and drop missing values
+df_2022 = df[df['Year'] == 2023]
+df_2022 = df_2022.dropna(subset=['Value'])
+
+# Sort and pick top 10 countries by population
+top10 = df_2022.sort_values(by='Value', ascending=False).head(10)
+
+# Plotting
+plt.figure(figsize=(12, 6))
+sns.barplot(x='Value', y='Country Name', data=top10, palette='viridis')
+plt.title("Top 10 Countries by Population in 2023")
+plt.xlabel("Population")
+plt.ylabel("Country")
+plt.tight_layout()
+plt.show()
